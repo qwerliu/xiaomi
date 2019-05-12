@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <style type="text/css">
+		*{margin:0;padding:0;}
+		
+		#login{width:300px;height:300px;position: absolute;left:160px;top:200px;}
+	    h1{color:orangered;font:32px/32px "";}
+	    input{width:280px;height:30px;margin-top:20px;padding-left:20px;}
+	    #btn{background:orangered;color:#fff;width:300px;height:40px;}
+	</style>
+</head>
+<body>
+	<div id="login">
+	   <h1>账号登录<small><a href="register.html">去注册</a></small></h1>
+	    <input type="text" id="user" value="" placeholder="用户名"><br>
+	    <input type="text" id="pass" value="" placeholder="密码"><br>
+	    <input type="button" name="btn" id="btn" value="登录">
+	    <span></span>
+	 </div>   
+</body>
+<script>
+    class Login{
+        constructor(){
+            this.user = document.getElementById("user");
+            this.pass = document.getElementById("pass");
+            this.btn = document.getElementById("btn");
+            this.span = document.querySelector("span");
+
+            this.init();
+            this.getData();
+        }
+        init(){
+            var that = this;
+            this.btn.onclick = function(){
+                that.yanzheng();
+            }
+        }
+        getData(){
+            this.abc = localStorage.getItem("abc");
+            // 读取localStorage，如果有就解析成数组，如果没有就给一个空数组，方便操作
+            if(this.abc == null){
+                this.abc = [];
+            }else{
+                this.abc = JSON.parse(this.abc)
+            }
+        }
+        yanzheng(){
+            for(var i=0;i<this.abc.length;i++){
+                if(this.abc[i].user == this.user.value && this.abc[i].pass == this.pass.value){
+                    this.span.innerHTML = "登录成功,3秒后跳转,小米为发烧而生!";
+
+                    this.abc[i].onoff = 1;
+
+                    localStorage.setItem("abc",JSON.stringify(this.abc))
+
+                    setTimeout(()=>{
+                        location.href = "../index.html";
+                    },3000)
+                    return;
+                }
+            }
+            this.span.innerHTML = "用户名密码不符";
+        }
+    }
+
+
+    new Login();
+</script>
+</html>

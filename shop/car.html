@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link href="css/public.css" rel="stylesheet" type="text/css">
+	 <style type="text/css">
+	        #nav{height:40px;background:#333;border-top:1px solid #d5d5d5;}
+			#nav ul.left{float:left;}
+			#nav ul.left li{float:left;font:12px/40px "";padding-left:6px;padding-right:6px;background:url(images/nav1.png) no-repeat right;}
+			#nav ul.left li a{color:#929292;}
+			#nav ul.left li:hover a{color:#fff;}
+
+
+
+			#nav ul.left li.first{margin-left:0px;}
+
+
+			#nav ul.right{float:right;}
+			#nav ul.right li{float:left;font:12px/40px "";padding-left:6px;padding-right:6px;background:url(images/nav1.png) no-repeat right;}
+			#nav ul.right li a{color:#929292;}
+			#nav ul.right li.last a{color:red;}
+
+
+
+	        header {height:100px;border-bottom:3px solid #ff6700;}
+	        header .logo{margin-top:26px;margin-left:43px;}
+			header  span{margin-left:46px;font:26px/100px "";}
+			header  i{font-style:normal;margin-left:16px;margin-top:10px;font:12px/90px "";}
+			
+
+			
+			main{background:#f5f5f5;padding-top:38px;padding-bottom:38px;}
+			table{width:1226px;background:#fff;border:2px solid #000;}
+			table img{width: 60px;}
+			table th{font:700  18px/32px "";color:#000;border:2px solid #000;}
+            table td{font:14px/32px "";color:#000;border:2px solid #000;}
+
+
+
+			b{display: block;width: 100px;line-height: 30px;text-align: center;background: deepskyblue;border-radius: 6px;margin: 0 auto;margin-top: 10px;font-style: normal;cursor: pointer;color: #fff;}
+			input[type="number"]{width:60px}
+			
+
+			
+			footer a {color:red;}
+      </style>
+	</head>
+
+	<body>
+	<div id="nav">
+			<ul class="left">
+					<li class="first"><a href="#">小米商城</a></li>
+					<li><a href="#">MIUI</a></li>
+					<li><a href="#">IoT</a></li>
+					<li><a href="#">云服务</a></li>
+					<li><a href="#">金融</a></li> 
+					<li><a href="#">有品</a></li>
+					<li><a href="#">小爱开放平台</a></li>
+					<li><a href="#">政企服务</a></li>
+					<li><a href="#">资质证照</a></li>
+					<li><a href="#">协议政策</a></li>
+					<li><a href="#">下载App</a></li>
+					<li class="last"><a href="#">Select Region</a></li>
+			</ul>
+			<ul class="right">
+					<li><P><a href="http://localhost/%E5%B0%8F%E7%B1%B33/login/login.html">登录</a></P></li>
+					<li><P><a>欢迎<span>XXX</span>登录,<em id="exit">退出</em></a></P></li>
+					<li><p><a href="http://localhost/%E5%B0%8F%E7%B1%B33/login/register.html">注册</a></p></li>
+					<li><a href="#">消息通知</a></li>
+					<li class="last"><a>购物车</a></li>
+			</ul>
+		</div>
+		
+         <header>
+            <img src="images/car1.png" class="logo">
+           
+            <span>我的购物车</span><i>温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</i>
+        </header>
+
+
+    <main>
+	<table border="1" cellspacing="0" width="1000" align="center">
+			<thead>
+				<tr>
+					<th width="80"></th>
+					<th width="100">商品图片</th>
+					<th>名字</th>
+					<th>价格</th>
+					<th width="120">数量</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+				<!--<tr>
+					<td><input type="checkbox" name="" id="" value="" /></td>
+					<td><img src=""/></td>
+					<td>名字</td>
+					<td>价格</td>
+					<td>1</td>
+					<td><em data-index="">删除</em></td>
+				</tr>-->
+			</tbody>
+
+
+			<tfoot>
+				<tr>
+					<td><input type="checkbox" id="selectAll"/></td>
+                    <td>全部选中</td>
+					<td align="right">总价：</td>
+					<td id="totalPrice">0</td>
+					<td id="totalNum"> 总数量：0</td>
+					<td><b>全部删除</b></td>
+				</tr>
+			</tfoot>
+
+
+	  </table>
+     </main>
+
+        <footer>
+            <a href="list.html" target="_blank">继续购物</a>
+        </footer> 
+	</body>
+	<script src="libs/ajax.3.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="libs/cookie.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="../jquery.2.2.4.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+		//登录
+		class Index{
+			constructor(){
+				this.p = document.querySelectorAll("#nav .right li p");
+				console.log(this.p)
+				this.span = document.querySelector("#nav .right li p a span");
+				console.log(this.span);
+				this.exit = document.querySelector("#nav .right li p a #exit")
+				console.log(this.exit)
+				this.getData()
+				this.addEvent();
+			}
+			getData(){
+				this.abc = localStorage.getItem("abc");
+				// 读取localStorage，如果有就解析成数组，如果没有就给一个空数组，方便操作
+				if(this.abc == null){
+					this.abc = [];
+				}else{
+					this.abc = JSON.parse(this.abc)
+				}
+				this.panduan()
+			}
+			panduan(){
+				for(var i=0;i<this.abc.length;i++){
+					if(this.abc[i].onoff == 1){
+						this.p[0].style.display = "none";
+						this.p[1].style.display = "block";
+						this.p[2].style.display = "none";
+						this.span.innerHTML = this.abc[i].user;
+						this.successUser = this.abc[i].user;
+						return;
+					}
+				}
+				this.p[0].style.display = "block";
+				this.p[1].style.display = "none";
+				this.p[2].style.display = "block";
+				this.span.innerHTML = "";
+			}
+			addEvent(){
+				var that = this;
+				this.exit.onclick = function(){
+					if(that.successUser){
+						for(var i=0;i<that.abc.length;i++){
+							if(that.abc[i].user === that.successUser){
+								that.abc[i].onoff = 0;
+								localStorage.setItem("abc",JSON.stringify(that.abc))
+								that.panduan();
+							}
+						}
+					}
+				}
+			}
+		}
+
+	new Index(); 
+
+
+	
+		class Car{
+			constructor(options){
+//				1.解析参数
+				this.tbody = options.tbody;
+				this.url = options.url;
+				
+				// this.totalPrice = options.totalPrice;
+				// this.totalNum = options.totalNum;
+				// //用来保存相应的总数和总价
+				// this.totalNumV = 0;
+				// this.totalPriceV = 0;
+				// this.selectAll = options.selectAll;
+				// this.selectAll.checked = false;
+
+//				2.请求数据
+				this.load();
+				
+//				5.绑定事件
+				this.addEvent();
+			}
+			load(){
+				var that = this;
+				ajax({
+					url:this.url,
+					success:function(res){
+						that.res = JSON.parse(res);
+//						3.获取cookie
+						that.getCookie();
+					}
+				})
+			}
+			getCookie(){
+				this.goods = getCookie("goods");
+//				获取cookie
+				this.goods = JSON.parse(getCookie("goods"));
+//				4.渲染页面
+				this.display()
+			}
+			display(){
+				var str = "";
+//				比对cookie和总数据
+				for(var i=0;i<this.res.length;i++){
+					for(var j=0;j<this.goods.length;j++){
+						if(this.res[i].goodsId == this.goods[j].id){
+							str += `<tr>
+										<td><input type="checkbox" id="checkbox" /></td>
+										<td><img src="${this.res[i].src}"/></td>
+										<td>${this.res[i].name}</td>
+										<td>${this.res[i].price}</td>
+										<td><input type="number" value="${this.goods[j].num} id="num"></td>
+										<td><b data-index="${this.res[i].goodsId}">删除</b></td>
+									</tr>`;
+						}
+					}
+				}
+				this.tbody.innerHTML = str;
+			}
+			addEvent(){
+				var that = this;
+				this.tbody.addEventListener("click",function(eve){
+					if(eve.target.nodeName == "B"){
+//						找到点击商品的货号
+						that.id = eve.target.getAttribute("data-index");
+//						删除DOM元素
+						eve.target.parentNode.parentNode.remove();
+//						6.遍历cookie,找到符合条件的数据,做删除
+						that.changeCookie(function(index){
+//							8.删除并再次设置回去
+							that.goods.splice(index,1);
+						})
+					}
+				})
+				this.tbody.addEventListener("input",function(eve){
+					if(eve.target.type == "number"){
+//						10.先获取修改之后的数量,再获取当前商品的id
+						that.value = eve.target.value;
+						that.id = eve.target.parentNode.nextElementSibling.children[0].getAttribute("data-index");
+//						11.遍历cookie,找到符合条件的数据,做修改
+						that.changeCookie(function(index){
+							that.goods[index].num = that.value;
+						});
+					}
+				})
+            //  this.tbody.addEventListener("change",function(eve){
+			// 	 var e = eve || window.event;
+			// 	 var target = e.target || e.srcElement;
+			// 	 //判断引起改变事件的事件源是否为要选择的复选框
+			// 	 if(target.id == "checkbox"){
+			// 		 //判断复选框的状态是否为选中状态
+			// 		 if(target.checked ==  true){
+			// 				//如果复选框的状态为选中状态则计算相应的数量的总价
+			// 				that.totalNumV +=  parseInt(target.parentNode.parentNode.children[4].children[0].value);
+			// 				console.log(that.totalNumV);
+			// 				that.totalPriceV += (target.parentNode.parentNode.children[4].children[0].value) * target.parentNode.parentNode.children[3].innerHTML;
+			// 			}
+			// 			//判断改变后,复选框的状态是否未选中的状态
+			// 			if(target.checked == false){
+			// 				//如果复选框的状态解除选中则要减去相应的数量和总价;
+			// 				that.totalNumV -=  parseInt(target.parentNode.parentNode.children[4].children[0].value);
+			// 				that.totalPriceV -= (target.parentNode.parentNode.children[4].children[0].value) * target.parentNode.parentNode.children[3].innerHTML;
+			// 				that.selectAll.checked = false;
+			// 			}
+			// 			that.totalNum.innerHTML = "总数量为：" + that.totalNumV;
+			// 			that.totalPrice.innerHTML = that.totalPriceV;
+			// 	 }
+			//  })
+			//  this.selectAll.addEventListener("change",function(){
+			// 		//这里需要清空之前单个的选项数据,不然全选会造成与之前的叠加问题
+			// 		that.totalNumV = 0;
+			// 		that.totalPriceV = 0;
+			// 		that.tr = document.querySelectorAll("tbody tr");;
+			// 		if(this.checked == true){
+			// 			for(var i=0;i<that.tr.length;i++){
+			// 				that.tr[i].children[0].children[0].checked = true;
+			// 				that.totalNumV += parseInt(that.tr[i].children[4].children[0].value);
+			// 				that.totalPriceV += parseInt(that.tr[i].children[4].children[0].value) * that.tr[i].children[3].innerHTML;
+			// 			}
+			// 		}else{
+			// 			for(var i=0;i<that.tr.length;i++){
+			// 				that.tr[i].children[0].children[0].checked = false;
+			// 				that.totalNumV = 0;
+			// 				that.totalPriceV = 0;
+			// 			}
+			// 		}
+			// 		that.totalNum.innerHTML = "总数量为：" + that.totalNumV;
+			// 		that.totalPrice.innerHTML = that.totalPriceV;
+			// 	})
+			 }
+
+			changeCookie(callback){
+//				7.找到cookie中符合条件的数据
+				for(var i=0;i<this.goods.length;i++){
+					if(this.goods[i].id == this.id){
+						break;
+					}
+				}
+				
+				callback(i);
+				
+//				9.再设置回去
+//				12.再设置回去
+				setCookie("goods",JSON.stringify(this.goods))
+			}
+		}
+		
+		new Car({
+			tbody:document.getElementById("tbody"),
+			url:"./data/shanping.json"
+			// totalPrice:document.querySelector("#totalPrice"),
+			// totalNum:document.querySelector("#totalNum"),
+			// selectAll:document.querySelector("#selectAll")
+		})
+		
+	</script>
+</html>

@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+body{width:1126px;margin:0 auto;}
+
+
+#header{position:relative;height:102px;}
+#header .logo{position:absolute;left:0;top:22px;}
+
+#header .water{position:absolute;left:114px;top:44px;}
+
+#header ol{margin-left:245px;}
+#header ol li{float:left;margin-right:21px;font:14px/102px "";}
+#header ol li a{color:#333;}
+
+
+
+
+#header .search{padding-top:26px;position:relative;}
+#header .search  #txt{float:left;width:243px;height:48px;border:1px solid #e0e0e0;}
+#header .search  #sub{float:left;width:51px;height:48px;background:url(../images/header3.png) no-repeat center;border:1px solid #e0e0e0;border-left:0;}
+
+
+
+#banner1{position:relative;width:1126px;height:462px;overflow: hidden;}
+#banner1 .imgbox img{width:1126px;height:462px;z-index:1;}
+#banner1 .imgbox a{position:absolute;left:1126px;top:0;}
+#banner1 .imgbox a:nth-child(1){left:0}
+
+#banner1 .btns input{position:absolute;top:211px;width:40px;height: 40px;border: none;background: rgba(220,220,220,0.7);z-index:2;}
+#left{left:0;}
+#right{right:0;}
+
+
+
+
+
+#bottom ul.bottom-t{height:80px;}
+#bottom ul.bottom-t li{float:left;width:222px;height:80px;background:url(../images/bottom5.png) no-repeat right;text-align:center;font:20px/80px "";}
+#bottom ul.bottom-t li.last{background:none;}
+#bottom ul.bottom-t li span{margin-left:10px;}
+
+
+#bottom .bottom-b{height:175px;padding-top:17px;float:left;}
+
+#bottom .bottom-b dl{float:left;margin-right:67px;}
+#bottom .bottom-b dl.first{margin-left:40px;}
+#bottom .bottom-b dl.last{float:left;padding-right:82px;background:url(../images/bottom7.png) no-repeat right;}
+
+
+#bottom .bottom-b dl dt{font:14px/60px "";color:#424242;}
+#bottom .bottom-b dl dd{font:12px/28px "";color:#757575;}
+
+
+#bottom .bottom-b-r{float:left;padding-top:36px;width:256px;height:157px;text-align:center;}
+#bottom .bottom-b-r h3{font:16px/30px "";color:#ff6700;}
+#bottom .bottom-b-r p{font:12px/20px "";}
+#bottom .bottom-b-r h6{color:#ff6700;border:1px solid #ff6700;width:119px;height:28px;text-align:center;font:12px/28px "";margin-left:70px;margin-top:20px;}
+
+
+
+
+

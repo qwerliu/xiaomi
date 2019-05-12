@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>小米</title>
+<link href="css/public.css" rel="stylesheet" type="text/css">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+
+
+<body>
+    <div id="head">
+       
+    </div>
+		
+		
+    <div id="main">
+        <div class="s_box">
+            <b><img src="images/main1.png" ></b>
+            <b><img src="images/main2.jpg" ></b>
+            <b><img src="images/main3.jpg" ></b>
+            <b><img src="images/main4.jpg" ></b>
+            <b><img src="images/main5.jpg" ></b> 
+			<span></span>
+			<p></p>
+        </div>
+				
+        <div class="b_box">
+          <img src="images/main1.png" > 
+          <!-- <img src="images/main2.jpg" >
+          <img src="images/main3.jpg" >
+          <img src="images/main4.jpg" >
+          <img src="images/main5.jpg" > -->
+		</div>
+				
+
+			
+				
+			<div class="right">
+				<h2>小米8</h2>
+				<p>相机全新升级/960帧超慢动作/手持超级夜景/全球首款双频GPS/骁龙845处理器/红外人脸解</p>
+				<p>锁/AI变焦双摄/三星AMOLED屏</p>
+				<h4>小米自营</h4>
+				<i>1499元</i>
+				
+				<div class="free">
+						<div class="top"><h3>优惠券</h3><b>小米8专属200元优惠券</b></div>
+						<div class="bottom"><h3>优惠券</h3><b>小米8专属200元优惠券</b></div>
+				</div>
+				
+				<div class="xinhao">
+						<h3>选择版本</h3>
+						<ul>
+							<li>6G+64G 全网通<span>1499元</span></li>
+							<li>4G+128G 移动4G+<span>1399元</span></li>
+							<li>6G+128G 全网通<span>1799元</span></li>
+						</ul>
+				</div>
+				<div class="color">
+						<h3>选择版本</h3>
+						<ul>
+							<li>梦幻蓝</li>
+							<li>深空灰</li>
+						</ul>
+				</div>
+
+				<h6>加入购物车</h6>
+		</div>
+
+			
+	</div>		
+    
+
+    <div id="box">
+      <ul>
+          <li class="active"><img src="images/main1.png"></li> 
+          <li><img src="images/main2.jpg"></li>
+          <li><img src="images/main3.jpg"></li> 
+          <li><img src="images/main4.jpg"></li>
+          <li><img src="images/main5.jpg"></li> 
+      </ul>
+    </div>
+		
+		
+		 
+
+
+    <div class="bb">
+
+    </div>
+
+    
+    
+</body>
+<script src="../jquery.2.2.4.js"></script>
+<script type="text/javascript">
+
+$("#head").load("http://localhost/小米3/data1.html .aa")
+
+$(".bb").load("http://localhost/小米3/data2.html .bb")
+
+     //选项卡
+//			1.获取元素
+		   var ali = document.querySelectorAll("#box ul li");
+		   var ab = document.querySelectorAll("#main .s_box b");
+		  
+//		   2.绑定点击事件
+		   for(var i=0;i<ali.length;i++){
+			   ali[i].index = i;
+			   
+			   ali[i].onclick = function(){
+//				 3.取消所有li的active
+				   for(var j=0;j<ali.length;j++){
+					   ali[j].className = "";
+					   ab[j].style.display = "none";
+				   }
+//				   4.给当前元素加上Active
+				   this.className = "active";
+//				   6.根据this拿到自己身上在外面保存好了的索引
+					 ab[this.index].style.display = "block";
+					 console.log(ab[this.index]);
+			   }
+		   } 
+
+     
+
+
+
+     //放大镜
+//		1.选择元素
+		var oSbox = document.querySelector("#main .s_box");
+		var oPbox = oSbox.children[5];
+		var oBbox = document.querySelector("#main .b_box");
+		var oBimg = oBbox.children[0];
+		
+//		2-1.绑定事件
+		oSbox.addEventListener("mouseover",function(){
+//			3-1.进入后显示元素
+			oPbox.style.display = "block";
+			oBbox.style.display = "block";
+//			4.绑定移动事件
+			oSbox.addEventListener("mousemove",function(eve){
+				var e = eve || window.event;
+//				5.计算要生效的left和top值
+				var l = e.offsetX - oPbox.offsetWidth/2
+				var t = e.offsetY - oPbox.offsetHeight/2
+//				6.边界限定
+				if(l<0) l=0;
+				if(t<0) t=0;
+				if(l>oSbox.offsetWidth-oPbox.offsetWidth){
+					l = oSbox.offsetWidth-oPbox.offsetWidth
+				}
+				if(t>oSbox.offsetHeight-oPbox.offsetHeight){
+					t = oSbox.offsetHeight-oPbox.offsetHeight
+				}
+//				7.设置left和top
+				oPbox.style.left = l + "px";
+				oPbox.style.top = t + "px";
+				
+//				8.计算比例
+				var x = l / (oSbox.offsetWidth-oPbox.offsetWidth);
+				var y = t / (oSbox.offsetHeight-oPbox.offsetHeight);
+				
+//				9.根据比例,移动右图
+				oBimg.style.left = -(oBimg.offsetWidth - oBbox.offsetWidth) * x + "px";
+				oBimg.style.top = -(oBimg.offsetHeight - oBbox.offsetHeight) * y + "px";
+				
+			})
+		})
+		
+//		2-2.绑定事件
+		oSbox.addEventListener("mouseout",function(){
+//			3-2.进入后显示元素
+			oPbox.style.display = "none"
+			oBbox.style.display = "none"
+		})
+		
+
+
+
+	</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
